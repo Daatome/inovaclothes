@@ -27,6 +27,7 @@ class CrearProducto extends Component
 
         //saving the image
         $this->product_image=$this->product_image->store('public/product_images');
+        $this->product_image=str_replace('public/product_images/','', $this->product_image);
 
         //create the product
         $producto=Product::create([
