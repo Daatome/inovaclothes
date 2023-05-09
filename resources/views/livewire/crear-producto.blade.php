@@ -24,6 +24,9 @@
                 <x-input-label for="product_image" :value="__('Imagen del producto')" />
                 <x-text-input id="product_image" class="block mt-1 max-w-xs " type="file"  name="product_image" :value="old('product_image')" accept="image/**" wire:model='product_image' autofocus/>
                 <x-input-error :messages="$errors->get('product_image')" class="mt-2" />
+                @if ($product_image)
+                    <img src="{{ $product_image->temporaryUrl() }}" class="w-32">
+                @endif
             </div>
         </div>
         <x-primary-button class="ml-3 mt-5">

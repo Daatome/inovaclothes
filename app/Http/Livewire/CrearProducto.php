@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Product;
 use App\Models\product_image;
+use App\Models\Size;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -22,7 +23,6 @@ class CrearProducto extends Component
     ];
     
     public function crearProducto(){
-
         $this->validate();
 
         //saving the image
@@ -34,9 +34,23 @@ class CrearProducto extends Component
             'nombre'=> $this->product_name,
             'precio'=> $this->product_price
         ]);
+        //save the image name
         $producto->product_image()->create([
             'imagen'=>$this->product_image
         ]);
+
+        $tallas= Size::all();
+
+        foreach($tallas as $talla)
+        {
+            $producto->merch()->create([
+                'size_id'=>$talla->id,
+                'cantidad'=>0
+            ]);
+        }
+
+        //create the sizes
+
         
         
         
