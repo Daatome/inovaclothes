@@ -23,6 +23,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+//productos
 Route::get('/dashboard/editarProducto/{product}',[ProductController::class,'show'])->middleware(['auth','verified'])->name('editProduct');
 
 Route::middleware('auth')->group(function () {
