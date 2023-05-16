@@ -36,8 +36,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        dd($product->nombre);
-        //now we have to create the view and in that view insert a livewire component
+        return view('products.product-details', [
+            'product'=>$product
+        ]);
     }
 
     /**
