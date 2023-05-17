@@ -17,10 +17,6 @@ class Product extends Model
         return $this->hasMany(product_image::class);
     }
 
-    public function size()
-    {
-        return $this->hasMany(Size::class);
-    }
 
     public function merch()
     {   

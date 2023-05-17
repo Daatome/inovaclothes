@@ -13,4 +13,9 @@ class Merch extends Model
 
 
     public $fillable=['size_id','cantidad'];
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
+    }
 }
