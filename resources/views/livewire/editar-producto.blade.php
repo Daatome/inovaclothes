@@ -11,7 +11,12 @@
             <p>Agrega alguna imagen del producto!</p>
         @endforelse 
     </div>
-    <form action="">
+    <p>
+        @if (session()->has('mensaje'))
+            <p class="bg-green-500 border-l-2 border-green-600 text-black font-bold">{{session('mensaje')}}</p>
+        @endif
+    </p>
+    <form action="" wire:submit.prevent='addImage'>
         <div class="mt-10">
             <x-text-input id="product_image" class="block mt-1 max-w-xs " type="file"  name="product_image" :value="old('product_image')" accept="image/**" wire:model='product_image' autofocus/>
             <x-input-error :messages="$errors->get('product_image')" class="mt-2" />
@@ -40,7 +45,7 @@
             </div>
 
             <h3 class="text-xl mt-10">Tallas y sus cantidades</h3>
-            <p>Se muestran las cantidades actuales, puedes editarlar</p>
+            <p>Se muestran las cantidades actuales, puedes editarla</p>
             <div class="md:grid md:grid-cols-5 gap-12 mt-10 ">
                 
                 <div class="mb-4" >

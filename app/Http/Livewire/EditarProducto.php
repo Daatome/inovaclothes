@@ -28,7 +28,13 @@ class EditarProducto extends Component
     public $l;
     public $xl;
    
-
+    protected $rules=[
+        "xs" => 'required|integer|min:0',
+        "s" => 'required|integer|min:0',
+        "m" => 'required|integer|min:0',
+        "l" => 'required|integer|min:0',
+        "xl" => 'required|integer|min:0',
+    ];
 
 
 
@@ -45,6 +51,22 @@ class EditarProducto extends Component
         $this->l=$this->merch[3]->cantidad;
         $this->xl=$this->merch[4]->cantidad;
         
+    }
+
+    public function addImage(){
+        //Este codigo sirve para validar un solo campo que no necesariamente debe estar en las rules
+        $this->validate([
+            'product_image'=>'required|image|max:1024'
+        ]);
+        //saving the image
+        $this->product_image=$this->product_image->store('public/product_images');
+        $this->product_image=str_replace('public/product_images/','', $this->product_image);
+        $this->product->product_image()->create([
+            'imagen'=>$this->product_image
+        ]);
+        session()->flash('mensaje','Producto Creado ');
+
+        redirect()->route('editProduct',$this->product->id);
     }
     
     public function render()
