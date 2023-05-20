@@ -68,6 +68,24 @@ class EditarProducto extends Component
 
         redirect()->route('editProduct',$this->product->id);
     }
+
+    public function addMerch(){
+        $this->validate();
+
+        $this->merch[0]->cantidad= $this->xs;
+        $this->merch[1]->cantidad= $this->s;
+        $this->merch[2]->cantidad= $this->m;
+        $this->merch[3]->cantidad= $this->l;
+        $this->merch[4]->cantidad= $this->xl;
+        foreach ($this->merch as $mercancia){
+            $mercancia->save();
+        }
+        //$this->merch->save();
+        session()->flash('mensaje','Cantidades Actualizadas ');
+
+        redirect()->route('editProduct',$this->product->id);
+
+    }
     
     public function render()
     {
