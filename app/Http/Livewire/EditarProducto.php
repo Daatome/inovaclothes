@@ -3,8 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\Models\Size;
+use App\Models\Product;
+use App\Models\product_image;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class EditarProducto extends Component
 {
@@ -86,7 +89,19 @@ class EditarProducto extends Component
         redirect()->route('editProduct',$this->product->id);
 
     }
-    
+
+    public $listeners=['eliminarImagen'];
+
+    public function eliminarImagen(product_image $image){
+        //delete images
+        $res=Storage::delete('public/product_images/'.$image->imagen);
+            
+        //deleted from DB
+        $image->delete();
+
+        return redirect()->route('editProduct',$this->product->id);
+    }
+
     public function render()
     {
         return view('livewire.editar-producto');

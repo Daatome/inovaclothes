@@ -77,6 +77,7 @@
                 @forelse ($product_images as $image )
                     <div class="w-full my-4">
                         <img src=" {{ asset('storage/product_images/'. $image->imagen) }} " alt="imagen"  class=" h-80 w-full rounded-lg">
+                        <button wire:click="$emit('mostrarAlerta',{{ $image->id}})" class="bg-red-600 hover:bg-red-800 p-3 text-center text-white text-base rounded-lg">Eliminar</button>
                     </div>
                     
                 @empty
@@ -86,3 +87,30 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        Livewire.on('mostrarAlerta', image =>{
+                Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podras recuperar la imagen",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emit('eliminarImagen', image);
+                Swal.fire(
+                'Elminado!',
+                'Imagen eliminada',
+                'success'
+                )
+            }
+            }) 
+        });
+
+    </script>
+@endpush
